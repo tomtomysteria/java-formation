@@ -1,16 +1,15 @@
+package demos;
+
 import java.lang.NumberFormatException;
 import java.util.Scanner;
 
-public class Calculatrice {
-  public static void main(String[] args) {
-    // Création d'un objet Scanner pour lire l'entrée utilisateur
-    Scanner scanner = new Scanner(System.in);
+public class CalculatriceDemo {
+  public static void run(Scanner scanner) {
+    System.out.println("=== Démo de la calculatrice ===");
 
     // Demande à l'utilisateur d'entrer deux nombres
     double firstNumber = enterValidInput("Entrez le premier nombre : ", scanner);
     double secondNumber = enterValidInput("Entrez le deuxième nombre : ", scanner);
-
-    scanner.close();
 
     double addition = firstNumber + secondNumber;
     double subtraction = firstNumber - secondNumber;

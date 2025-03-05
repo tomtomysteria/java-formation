@@ -1,9 +1,12 @@
+package demos;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class PairImpair {
-  public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
+public class PairImpairDemo {
+  public static void run(Scanner scanner) {
+    System.out.println("=== Démo Pair/Impair ===");
+
     int number = 0;
     boolean validInput = false;
 
@@ -32,8 +35,5 @@ public class PairImpair {
     } else {
       System.out.println("Le nombre est impair");
     }
-
-    scanner.close();
   }
-
 }
