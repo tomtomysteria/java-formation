@@ -4,6 +4,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PairImpairDemo {
+  private PairImpairDemo() {
+    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated.");
+  }
+
   public static void run(Scanner scanner) {
     System.out.println("=== Démo Pair/Impair ===");
 

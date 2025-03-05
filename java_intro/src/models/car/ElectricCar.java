@@ -1,4 +1,4 @@
-package models;
+package models.car;
 
 public class ElectricCar extends Car {
   private int batteryCapacity;

@@ -1,9 +1,12 @@
 package demos;
 
-import java.lang.NumberFormatException;
 import java.util.Scanner;
 
 public class CalculatriceDemo {
+  private CalculatriceDemo() {
+    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated.");
+  }
+
   public static void run(Scanner scanner) {
     System.out.println("=== Démo de la calculatrice ===");
 

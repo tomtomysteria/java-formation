@@ -1,4 +1,4 @@
-package models;
+package models.car;
 
 public class Car {
   // Attributes

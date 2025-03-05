@@ -1,9 +1,12 @@
 package demos;
 
-import models.Car;
-import models.ElectricCar;
+import models.car.*;
 
 public class CarDemo {
+  private CarDemo() {
+    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated.");
+  }
+
   public static void run() {
     System.out.println("=== Démo des voitures ===");
 
