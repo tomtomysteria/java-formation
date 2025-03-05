@@ -14,6 +14,7 @@ public class DemoLauncher {
       System.out.println("(2) Démo de la calculatrice ");
       System.out.println("(3) Démo Pair/Impair ");
       System.out.println("(4) Démo Employés ");
+      System.out.println("(5) Démo des livres ");
 
       System.out.print("Votre choix : ");
 
@@ -40,6 +41,9 @@ public class DemoLauncher {
           break;
         case 4:
           EmployeeDemo.run();
+          break;
+        case 5:
+          BookDemo.run();
           break;
         default:
           System.out.println("Choix invalide. Veuillez réessayer.");

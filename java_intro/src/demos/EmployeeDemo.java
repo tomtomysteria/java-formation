@@ -23,6 +23,7 @@ public class EmployeeDemo {
 
     System.out.print("\nDéveloppeur: ");
     developer.displayInfo();
+
     System.out.println("");
   }
 }
