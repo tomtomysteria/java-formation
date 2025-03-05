@@ -34,10 +34,10 @@ public class DemoLauncher {
           CarDemo.run();
           break;
         case 2:
-          CalculatriceDemo.run(scanner);
+          CalculatorDemo.run(scanner);
           break;
         case 3:
-          PairImpairDemo.run(scanner);
+          EvenOddDemo.run(scanner);
           break;
         case 4:
           EmployeeDemo.run();

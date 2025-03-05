@@ -1,6 +1,6 @@
 package basics;
 
-public class BouclesDemo {
+public class LoopsDemo {
   public static void main(String[] args) {
     System.out.println("Boucle for :");
     for (int i = 0; i < 5; i++) {

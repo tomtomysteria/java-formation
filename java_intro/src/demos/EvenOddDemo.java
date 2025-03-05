@@ -3,8 +3,8 @@ package demos;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class PairImpairDemo {
-  private PairImpairDemo() {
+public class EvenOddDemo {
+  private EvenOddDemo() {
     throw new UnsupportedOperationException("This is a utility class and cannot be instantiated.");
   }
 

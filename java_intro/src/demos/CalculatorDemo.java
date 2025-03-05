@@ -2,8 +2,8 @@ package demos;
 
 import java.util.Scanner;
 
-public class CalculatriceDemo {
-  private CalculatriceDemo() {
+public class CalculatorDemo {
+  private CalculatorDemo() {
     throw new UnsupportedOperationException("This is a utility class and cannot be instantiated.");
   }
 
