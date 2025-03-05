@@ -9,14 +9,21 @@ RM = rm -f
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
 
-# Compiler tous les fichiers Java et placer les .class dans bin/
-all: $(BIN_DIR)
-	$(JAVAC) -d $(BIN_DIR) -cp $(BIN_DIR) $(shell find $(SRC_DIR) -name "*.java")
+# Trouver tous les fichiers Java
+SRC_FILES = $(shell find $(SRC_DIR) -name "*.java")
+CLASS_FILES = $(patsubst $(SRC_DIR)/%.java, $(BIN_DIR)/%.class, $(SRC_FILES))
+
+# Compiler uniquement les fichiers modifiés
+all: $(CLASS_FILES)
+
+# Règle pour compiler chaque fichier Java individuellement et placer les .class dans bin/
+$(BIN_DIR)/%.class: $(SRC_DIR)/%.java | $(BIN_DIR)
+	$(JAVAC) -d $(BIN_DIR) -cp $(BIN_DIR) $<
 
 # Compiler un fichier spécifique avec autocomplétion
 compile:
 	@echo "Sélectionnez un fichier Java à compiler :"
-	@select file in $(shell find $(SRC_DIR) -name "*.java" 2>/dev/null); do \
+	@select file in $(SRC_FILES); do \
 		$(JAVAC) -d $(BIN_DIR) -cp $(BIN_DIR) $$file; \
 		break; \
 	done
