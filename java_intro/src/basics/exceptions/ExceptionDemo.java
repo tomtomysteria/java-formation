@@ -1,4 +1,4 @@
-package basics;
+package basics.exceptions;
 
 public class ExceptionDemo {
   public static void main(String[] args) {

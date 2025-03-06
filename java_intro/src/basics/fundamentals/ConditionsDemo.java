@@ -1,4 +1,4 @@
-package basics;
+package basics.fundamentals;
 
 public class ConditionsDemo {
   public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package basics;
+package basics.exceptions;
 
 public class FinallyDemo {
   public static void main(String[] args) {

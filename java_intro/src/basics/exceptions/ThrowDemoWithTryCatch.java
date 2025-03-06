@@ -1,4 +1,4 @@
-package basics;
+package basics.exceptions;
 
 public class ThrowDemoWithTryCatch {
   public static void validateAge(int age) {

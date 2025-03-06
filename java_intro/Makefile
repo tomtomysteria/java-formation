@@ -26,10 +26,12 @@ compile:
 		break; \
 	done
 
-# Exécuter une classe spécifique
+# Exécuter une classe spécifique (exclure demos/ et models/)
 run:
 	@echo "Sélectionnez une classe à exécuter :"
-	@select class in $(shell find $(BIN_DIR) -name "*.class" | sed 's|$(BIN_DIR)/||' | sed 's|.class||' | sed 's|/|.|g'); do \
+	@select class in $(shell find $(BIN_DIR) -name "*.class" \
+		! -path "$(BIN_DIR)/demos/*" ! -path "$(BIN_DIR)/models/*" \
+		| sed 's|$(BIN_DIR)/||' | sed 's|.class||' | sed 's|/|.|g'); do \
 		$(JAVA) -cp $(BIN_DIR) $$class; \
 		break; \
 	done
