@@ -1,6 +1,6 @@
 package basics.exceptions;
 
-public class ThrowDemoWithoutTryCatch {
+public class ThrowWithoutTryCatchDemo {
   public static void validateAge(int age) {
     if (age < 18) {
       throw new IllegalArgumentException("Âge insuffisant !");
