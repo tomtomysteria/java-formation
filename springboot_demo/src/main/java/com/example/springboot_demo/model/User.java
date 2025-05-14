@@ -1,4 +1,4 @@
-package com.example.springboot_demo;
+package com.example.springboot_demo.model;
 
 public class User {
   private String name;
