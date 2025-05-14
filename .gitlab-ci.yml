@@ -5,12 +5,16 @@ stages:
   - test
 
 before_script:
-  - apt-get update && apt-get install -y make
+  - apt-get update && apt-get install -y make unzip wget
+  - wget https://github.com/JetBrains/kotlin/releases/download/1.9.24/kotlin-compiler-1.9.24.zip
+  - unzip kotlin-compiler-1.9.24.zip -d /opt/
+  - export PATH=$PATH:/opt/kotlinc/bin
 
 build_job:
   stage: build
   script:
     - echo "Nettoyage et compilation des projets"
+    - export PATH=$PATH:/opt/kotlinc/bin
     - cd java_intro && make clean && make all
     - cd ../kotlin_intro && make clean && make all
 
