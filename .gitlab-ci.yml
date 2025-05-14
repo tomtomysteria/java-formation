@@ -1,3 +1,9 @@
+image: maven:3.9.6-eclipse-temurin-17
+
+cache:
+  paths:
+    - .m2/repository
+
 stages:
   - build
   - test
