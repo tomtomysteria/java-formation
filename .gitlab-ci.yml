@@ -4,6 +4,9 @@ stages:
   - build
   - test
 
+before_script:
+  - apt-get update && apt-get install -y make
+
 build_job:
   stage: build
   script:
