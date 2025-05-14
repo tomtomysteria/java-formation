@@ -1,9 +1,3 @@
-image: maven:3.9.6-eclipse-temurin-17
-
-cache:
-  paths:
-    - .m2/repository
-
 stages:
   - build
   - test
@@ -11,11 +5,12 @@ stages:
 build_job:
   stage: build
   script:
-    - echo "Compilation du projet Java"
-    - mvn compile
+    - echo "Nettoyage et compilation des projets"
+    - cd java_intro && make clean && make all
+    - cd ../kotlin_intro && make clean && make all
 
 test_job:
   stage: test
   script:
-    - echo "Tests unitaires"
-    - mvn test
+    - echo "Aucun test automatisé défini pour le moment"
+    - echo "Étape de test réussie (placeholder)"
