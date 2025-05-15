@@ -6,6 +6,7 @@ import com.example.springboot_demo.repository.CategoryRepository;
 import com.example.springboot_demo.repository.ProductRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -48,5 +49,14 @@ public class ProductController {
   @DeleteMapping("/{id}")
   public void delete(@PathVariable Long id) {
     repo.deleteById(id);
+  }
+
+  @GetMapping("/par-categorie/{id}")
+  public List<Product> getByCategory(@PathVariable Long id) {
+    Category category = categoryRepo.findById(id).orElse(null);
+    if (category != null) {
+      return repo.findByCategory(category);
+    }
+    return Collections.emptyList();
   }
 }
