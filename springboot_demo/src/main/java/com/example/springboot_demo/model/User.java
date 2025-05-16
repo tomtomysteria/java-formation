@@ -1,23 +1,42 @@
 package com.example.springboot_demo.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "app_user")
 public class User {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
   private String username;
   private String password;
-  private int age;
   private String role;
 
   // Constructeurs
   public User() {
   }
 
-  public User(String username, String password, int age, String role) {
+  public User(String username, String password, String role) {
     this.username = username;
     this.password = password;
-    this.age = age;
     this.role = role;
   }
 
   // Getters & Setters
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
   public String getUsername() {
     return username;
   }
@@ -34,14 +53,6 @@ public class User {
     this.password = password;
   }
 
-  public int getAge() {
-    return age;
-  }
-
-  public void setAge(int age) {
-    this.age = age;
-  }
-
   public String getRole() {
     return role;
   }
@@ -49,5 +60,4 @@ public class User {
   public void setRole(String role) {
     this.role = role;
   }
-
 }
