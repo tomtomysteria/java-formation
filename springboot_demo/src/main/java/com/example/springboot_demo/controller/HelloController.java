@@ -3,7 +3,7 @@ package com.example.springboot_demo.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.springboot_demo.model.User;
+import com.example.springboot_demo.model.NonPersistentUser;
 
 @RestController
 public class HelloController {
@@ -14,8 +14,8 @@ public class HelloController {
   }
 
   @GetMapping("/utilisateur")
-  public User getUser() {
-    return new User("Jean Dupont", 30);
+  public NonPersistentUser getUser() {
+    return new NonPersistentUser("Jean Dupont", 30);
   }
 
 }

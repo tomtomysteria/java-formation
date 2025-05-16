@@ -1,14 +1,14 @@
 package com.example.springboot_demo.model;
 
-public class User {
+public class NonPersistentUser {
   private String name;
   private int age;
 
   // Constructeurs
-  public User() {
+  public NonPersistentUser() {
   }
 
-  public User(String name, int age) {
+  public NonPersistentUser(String name, int age) {
     this.name = name;
     this.age = age;
   }
