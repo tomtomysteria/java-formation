@@ -28,7 +28,10 @@ public class UserController {
 
   // Create a new user
   @PostMapping
-  public ResponseEntity<User> createUser(@RequestBody User user) {
+  public ResponseEntity<?> createUser(@RequestBody User user) {
+    if (repo.findByUsername(user.getUsername()).isPresent()) {
+      return new ResponseEntity<>("Username already exists", HttpStatus.CONFLICT);
+    }
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     User savedUser = repo.save(user);
