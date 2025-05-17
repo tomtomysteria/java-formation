@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:tns="http://example.com/product"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/product" name="ProductService">
+
+  <types>
+    <xsd:schema targetNamespace="http://example.com/product">
+      <xsd:import namespace="http://example.com/product" schemaLocation="product.xsd"/>
+    </xsd:schema>
+  </types>
+
+  <message name="GetProductRequest">
+    <part name="parameters" element="tns:GetProductRequest"/>
+  </message>
+  <message name="GetProductResponse">
+    <part name="parameters" element="tns:GetProductResponse"/>
+  </message>
+
+  <portType name="ProductPortType">
+    <operation name="GetProduct">
+      <input message="tns:GetProductRequest"/>
+      <output message="tns:GetProductResponse"/>
+    </operation>
+  </portType>
+
+  <binding name="ProductBinding" type="tns:ProductPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="GetProduct">
+      <soap:operation soapAction="http://example.com/product/GetProduct"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="ProductService">
+    <port name="ProductPort" binding="tns:ProductBinding">
+      <soap:address location="http://localhost:8081/ws"/>
+    </port>
+  </service>
+</definitions>
