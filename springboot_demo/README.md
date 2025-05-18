@@ -1,0 +1,96 @@
+# Spring Boot Demo
+
+Ce projet est une démonstration des fonctionnalités de Spring Boot, incluant l'authentification basée sur JWT et la gestion des utilisateurs avec une base de données PostgreSQL.
+
+## Fonctionnalités principales
+
+- **Authentification et autorisation** : Utilisation de Spring Security et JWT.
+- **Gestion des utilisateurs** : CRUD sur les utilisateurs avec JPA et PostgreSQL.
+- **Architecture modulaire** : Basée sur les meilleures pratiques de Spring Boot.
+
+## Prérequis
+
+- **Java 17** ou version supérieure.
+- **Maven** pour la gestion des dépendances.
+- **PostgreSQL** installé et configuré.
+
+## Installation
+
+1. Clonez le dépôt :
+   ```bash
+   git clone <url-du-repo>
+   ```
+
+2. Configurez la base de données dans `application.properties`.
+
+3. Lancez l'application :
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+
+## Configuration de l'application
+
+L'application est configurée pour utiliser une base de données PostgreSQL. Voici les paramètres par défaut :
+
+- **URL** : `jdbc:postgresql://localhost:5432/spring_demo`
+- **Nom d'utilisateur** : `postgres`
+- **Mot de passe** : `postgres`
+
+Vous pouvez modifier ces paramètres dans le fichier `application.properties` situé dans `src/main/resources/`.
+
+## Exécution
+
+1. Assurez-vous que PostgreSQL est en cours d'exécution et que la base de données `spring_demo` est créée.
+
+2. Lancez l'application :
+
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+
+3. Accédez à l'application sur [http://localhost:8080](http://localhost:8080).
+
+## Points forts de l'application
+
+- **Authentification JWT** : Sécurisez vos API avec des tokens JWT.
+- **Gestion des utilisateurs** : CRUD complet pour les utilisateurs.
+- **Base de données PostgreSQL** : Stockage des données utilisateur.
+
+Pour plus de détails, consultez le fichier [DOCS.md](./DOCS.md).
+
+## Contribution
+
+Les contributions sont les bienvenues. Veuillez suivre les étapes ci-dessous :
+
+1. Forkez le projet.
+2. Créez une branche pour vos modifications.
+3. Soumettez une pull request.
+
+## Ressources supplémentaires
+
+- [Documentation Spring Boot](https://spring.io/projects/spring-boot)
+- [Tutoriels Spring Boot](https://www.baeldung.com/spring-boot)
+
+## Structure du projet
+
+- **Classe principale** :
+  - `SpringbootDemoApplication.java` : Point d'entrée de l'application.
+
+- **Contrôleurs** :
+  - `AuthController.java` : Gère l'authentification des utilisateurs.
+  - `UserController.java` : Gère les opérations CRUD sur les utilisateurs.
+  - `ProductController.java` : Gère les produits.
+
+- **Modèles** :
+  - `User.java` : Représente un utilisateur.
+  - `Product.java` : Représente un produit.
+  - `Category.java` : Représente une catégorie de produits.
+
+- **Dépôts** :
+  - `UserRepository.java` : Accès aux données des utilisateurs.
+  - `ProductRepository.java` : Accès aux données des produits.
+
+- **Sécurité** :
+  - `SecurityConfig.java` : Configure la sécurité de l'application.
+  - `JwtRequestFilter.java` : Filtre les requêtes pour valider les JWT.
+  - `JwtUtil.java` : Gère la création et la validation des JWT.

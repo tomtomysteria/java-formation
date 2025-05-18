@@ -87,16 +87,67 @@ Le projet **Spring Boot Demo** est une application backend conçue pour démontr
 - Contient une table `app_user` avec les colonnes `id`, `username`, `password` et `role`.
 - Les mots de passe sont encodés avec `BCryptPasswordEncoder` pour garantir leur sécurité.
 
-### 8. **Flux d'authentification**
+### 8. **Configuration de la base de données**
 
-#### Connexion
+L'application utilise PostgreSQL comme base de données principale. Voici les étapes pour configurer la base de données :
 
-- L'utilisateur envoie une requête POST à `/auth/login` avec son nom d'utilisateur et son mot de passe.
-- Le contrôleur `AuthController` vérifie les identifiants et génère un JWT si tout est valide.
-- Le JWT est retourné au client.
+1. Assurez-vous que PostgreSQL est installé et en cours d'exécution.
+2. Créez une base de données nommée `spring_demo`.
+3. Mettez à jour les informations de connexion dans `application.properties` si nécessaire :
 
-#### Accès aux ressources protégées
+   ```properties
+   spring.datasource.url=jdbc:postgresql://localhost:5432/spring_demo
+   spring.datasource.username=postgres
+   spring.datasource.password=postgres
+   ```
 
-- Le client inclut le JWT dans l'en-tête `Authorization` des requêtes suivantes.
-- Le filtre `JwtRequestFilter` intercepte la requête, valide le JWT et charge les détails de l'utilisateur.
-- Si le JWT est valide, l'utilisateur est authentifié et peut accéder aux ressources protégées.
+### 9. **Flux d'authentification JWT**
+
+1. **Connexion** :
+   - L'utilisateur envoie une requête POST à `/auth/login` avec ses identifiants.
+   - Un JWT est généré et retourné si les identifiants sont valides.
+
+2. **Accès aux ressources protégées** :
+   - Le client inclut le JWT dans l'en-tête `Authorization` des requêtes suivantes.
+   - Le filtre `JwtRequestFilter` valide le JWT et charge les détails de l'utilisateur.
+
+3. **Déconnexion** :
+   - Bien que l'application soit stateless, le client peut simplement supprimer le JWT pour se déconnecter.
+
+### 10. **Structure des contrôleurs**
+
+- **AuthController** :
+  - Route `/auth/login` : Authentification des utilisateurs.
+  - Retourne un JWT en cas de succès.
+
+- **UserController** :
+  - Routes CRUD pour gérer les utilisateurs.
+
+- **ProductController** :
+  - Routes CRUD pour gérer les produits.
+
+### 11. **Gestion des entités**
+
+- **User** :
+  - Champs : `id`, `username`, `password`, `role`.
+  - Encodage des mots de passe avec `BCryptPasswordEncoder`.
+
+- **Product** :
+  - Champs : `id`, `name`, `price`, `category`.
+
+- **Category** :
+  - Champs : `id`, `name`.
+
+### 12. **Dépôts**
+
+- **UserRepository** :
+  - Méthode `findByUsername` pour rechercher un utilisateur par son nom d'utilisateur.
+
+- **ProductRepository** :
+  - Méthodes CRUD pour gérer les produits.
+
+## Lien vers le README
+
+Pour une vue d'ensemble rapide, consultez le fichier [README.md](./README.md).
+
+---
