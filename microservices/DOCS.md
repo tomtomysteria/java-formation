@@ -273,27 +273,3 @@ Les services trouvent la dépendance `shared-soap-models` grâce au dépôt loca
 | **Flexibilité** | Élevée        | Faible         |
 | **Complexité** | Simple        | Plus lourd     |
 | **Cas d’usage** | Web, mobile, APIs modernes | Intégration d’entreprise |
-
----
-
-## Exercices Pratiques
-
-### 🎯 Exercice 1 : Communication REST
-
-1. Appeler `product-service` depuis `order-service` via `RestTemplate`.
-2. Afficher les informations produit dans une commande simulée.
-
-### 🎯 Exercice 2 : Appel SOAP (Optionnel)
-
-1. Créer un endpoint SOAP qui retourne un produit.
-2. Créer un client SOAP avec Spring Boot ou SoapUI.
-
----
-
-## Récapitulatif
-
-✅ Création de deux microservices REST.
-✅ Appel d’un microservice depuis un autre avec `RestTemplate`.
-✅ Découverte de SOAP et du protocole XML.
-✅ Comparaison entre REST et SOAP.
-✅ Communication simulée entre services Spring Boot.
