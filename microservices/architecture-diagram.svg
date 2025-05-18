@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <!-- Background -->
+  <rect width="800" height="400" fill="#f9f9f9" />
+
+  <!-- Title -->
+  <text x="400" y="30" font-size="20" text-anchor="middle" fill="#333">Architecture des Microservices</text>
+
+  <!-- Eureka Server -->
+  <rect x="50" y="100" width="200" height="100" fill="#d9e8fb" stroke="#4a90e2" stroke-width="2" />
+  <text x="150" y="130" font-size="14" text-anchor="middle" fill="#333">Eureka Server</text>
+  <text x="150" y="150" font-size="12" text-anchor="middle" fill="#555">Port: 8761</text>
+
+  <!-- Product-Service -->
+  <rect x="300" y="50" width="200" height="100" fill="#d9fbd9" stroke="#4ae24a" stroke-width="2" />
+  <text x="400" y="80" font-size="14" text-anchor="middle" fill="#333">Product-Service</text>
+  <text x="400" y="100" font-size="12" text-anchor="middle" fill="#555">Port: 8081</text>
+
+  <!-- Order-Service -->
+  <rect x="300" y="200" width="200" height="100" fill="#fbd9d9" stroke="#e24a4a" stroke-width="2" />
+  <text x="400" y="230" font-size="14" text-anchor="middle" fill="#333">Order-Service</text>
+  <text x="400" y="250" font-size="12" text-anchor="middle" fill="#555">Port: 8082</text>
+
+  <!-- API Gateway -->
+  <rect x="550" y="125" width="200" height="100" fill="#fbe9d9" stroke="#e2a74a" stroke-width="2" />
+  <text x="650" y="155" font-size="14" text-anchor="middle" fill="#333">API Gateway</text>
+  <text x="650" y="175" font-size="12" text-anchor="middle" fill="#555">Port: 8080</text>
+
+  <!-- Arrows -->
+  <line x1="250" y1="150" x2="300" y2="100" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <line x1="250" y1="150" x2="300" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <line x1="500" y1="100" x2="550" y2="150" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+  <line x1="500" y1="250" x2="550" y2="175" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
+
+  <!-- Arrowhead Marker -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+</svg>

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import com.example.orderservice.config.ProductSoapClient;
 import com.example.shared.soap.GetProductResponse;
 import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
@@ -42,5 +43,12 @@ public class OrderController {
         "orderId", id,
         "status", "Commande récupérée",
         "details", "Détails fictifs de la commande");
+  }
+
+  @GetMapping
+  public List<Map<String, Object>> getAllOrders() {
+    return List.of(
+        Map.of("orderId", 1, "product", "Chaise", "quantity", 2),
+        Map.of("orderId", 2, "product", "Table", "quantity", 1));
   }
 }

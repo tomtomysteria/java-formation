@@ -273,3 +273,120 @@ Les services trouvent la dépendance `shared-soap-models` grâce au dépôt loca
 | **Flexibilité** | Élevée        | Faible         |
 | **Complexité** | Simple        | Plus lourd     |
 | **Cas d’usage** | Web, mobile, APIs modernes | Intégration d’entreprise |
+
+---
+
+## Communication entre services avec Spring Cloud
+
+La communication entre microservices est un aspect clé des architectures modernes. Spring Cloud simplifie cette communication grâce à des outils comme Eureka (découverte de services) et l'API Gateway (gestion centralisée des routes).
+
+### Découverte de Services avec Eureka
+
+Eureka est un serveur de découverte qui permet aux microservices de s'enregistrer et de se découvrir dynamiquement. Cela élimine le besoin de configurer manuellement les adresses des services.
+
+1. **Eureka Server** :
+   - Le serveur Eureka agit comme un annuaire où les microservices s'enregistrent.
+   - Chaque service client envoie périodiquement un "heartbeat" pour indiquer qu'il est actif.
+   - **Configuration technique :**
+
+     - Dépendance Maven :
+
+       ```xml
+       <dependency>
+           <groupId>org.springframework.cloud</groupId>
+           <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+       </dependency>
+       ```
+
+     - Annotation principale : `@EnableEurekaServer`
+
+     - Exemple de configuration dans `application.properties` :
+
+       ```properties
+       server.port=8761
+       eureka.client.register-with-eureka=false
+       eureka.client.fetch-registry=false
+       ```
+
+2. **Eureka Clients** :
+   - Les microservices comme `product-service` et `order-service` s'enregistrent auprès du serveur Eureka.
+   - Lorsqu'un service a besoin de communiquer avec un autre, il interroge Eureka pour obtenir son adresse.
+   - **Configuration technique :**
+
+     - Dépendance Maven :
+
+       ```xml
+       <dependency>
+           <groupId>org.springframework.cloud</groupId>
+           <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+       </dependency>
+       ```
+
+     - Exemple de configuration dans `application.properties` :
+
+       ```properties
+       eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+       spring.application.name=product-service
+       ```
+
+### API Gateway
+
+L'API Gateway agit comme un point d'entrée unique pour toutes les requêtes vers les microservices. Elle simplifie la gestion des routes et ajoute une couche d'abstraction.
+
+1. **Routage des Requêtes** :
+   - L'API Gateway utilise Eureka pour découvrir les services disponibles.
+   - Par exemple, une requête vers `/products` est redirigée vers `product-service`.
+   - **Configuration technique :**
+
+     - Dépendances Maven :
+
+       ```xml
+       <dependency>
+           <groupId>org.springframework.cloud</groupId>
+           <artifactId>spring-cloud-starter-gateway</artifactId>
+       </dependency>
+       <dependency>
+           <groupId>org.springframework.cloud</groupId>
+           <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+       </dependency>
+       ```
+
+     - Exemple de configuration dans `application.yml` :
+
+       ```yaml
+       spring:
+         cloud:
+           gateway:
+             routes:
+               - id: product-service
+                 uri: lb://product-service
+                 predicates:
+                   - Path=/products/**
+               - id: order-service
+                 uri: lb://order-service
+                 predicates:
+                   - Path=/orders/**
+       eureka:
+         client:
+           service-url:
+             defaultZone: http://localhost:8761/eureka/
+       ```
+
+2. **Avantages** :
+   - Centralisation des routes : Toutes les règles de routage sont définies dans un seul endroit.
+   - Découverte dynamique : Les services peuvent être ajoutés ou supprimés sans modifier la configuration de l'API Gateway.
+
+### Exemple de Flux de Communication
+
+1. Un client envoie une requête à l'API Gateway (par exemple, `/orders/create/1`).
+2. L'API Gateway utilise Eureka pour trouver l'adresse de `order-service`.
+3. `order-service` traite la requête et, si nécessaire, appelle `product-service` pour obtenir des informations supplémentaires via Eureka.
+4. La réponse est renvoyée au client via l'API Gateway.
+
+### Pourquoi Utiliser Spring Cloud ?
+
+- **Scalabilité** : Les services peuvent être ajoutés ou supprimés dynamiquement.
+- **Résilience** : Si un service est indisponible, Eureka peut rediriger les requêtes vers une instance disponible.
+- **Simplicité** : La configuration centralisée réduit la complexité de gestion des microservices.
+
+En résumé, Spring Cloud avec Eureka et l'API Gateway offre une solution robuste et flexible pour gérer la communication entre microservices dans une architecture distribuée.
