@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="a47201af-bd2d-4038-b851-7e17d00d79ac" activeEnvironment="Default" name="ProductServiceSOAP" resourceRoot="" soapui-version="5.8.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="26e877c5-82e3-462c-807c-ba63f9625da1" wsaVersion="NONE" name="ProductBinding" type="wsdl" bindingName="{http://example.com/product}ProductBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8081/rest-wsdl/product.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8081/rest-wsdl/product.wsdl"><con:part><con:url>http://localhost:8081/rest-wsdl/product.wsdl</con:url><con:content><![CDATA[<definitions targetNamespace="http://example.com/product" name="ProductService" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://example.com/product" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <types>
+    <xsd:schema targetNamespace="http://example.com/product">
+      <xsd:import namespace="http://example.com/product" schemaLocation="product.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="GetProductRequest">
+    <part name="parameters" element="tns:GetProductRequest"/>
+  </message>
+  <message name="GetProductResponse">
+    <part name="parameters" element="tns:GetProductResponse"/>
+  </message>
+  <portType name="ProductPortType">
+    <operation name="GetProduct">
+      <input message="tns:GetProductRequest"/>
+      <output message="tns:GetProductResponse"/>
+    </operation>
+  </portType>
+  <binding name="ProductBinding" type="tns:ProductPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="GetProduct">
+      <soap:operation soapAction="http://example.com/product/GetProduct"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="ProductService">
+    <port name="ProductPort" binding="tns:ProductBinding">
+      <soap:address location="http://localhost:8081/ws"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8081/rest-wsdl/product.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://example.com/product" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://example.com/product">
+  <xs:element name="GetProductRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+        <xs:element name="name" type="xs:string"/>
+        <xs:element name="price" type="xs:double"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8081/ws</con:endpoint></con:endpoints><con:operation id="e12623aa-4eb1-4e8f-84f0-dfe023b0358d" isOneWay="false" action="http://example.com/product/GetProduct" name="GetProduct" bindingOperationName="GetProduct" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8dd709d7-dc5a-48c1-95a4-50b2009c1b61" name="Product"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prod="http://example.com/product">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <prod:GetProductRequest>
+         <prod:id>1</prod:id>
+      </prod:GetProductRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/product/GetProduct"/><con:wsrmConfig version="1.2"/></con:call><con:call id="83315eaa-ac04-46f2-95c7-04f323440cca" name="Category"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8081/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:prod="http://example.com/category">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <prod:GetCategoryRequest>
+         <prod:id>1</prod:id>
+      </prod:GetCategoryRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://example.com/product/GetProduct"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
