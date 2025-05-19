@@ -390,3 +390,185 @@ L'API Gateway agit comme un point d'entrée unique pour toutes les requêtes ver
 - **Simplicité** : La configuration centralisée réduit la complexité de gestion des microservices.
 
 En résumé, Spring Cloud avec Eureka et l'API Gateway offre une solution robuste et flexible pour gérer la communication entre microservices dans une architecture distribuée.
+
+## Résumé de l'Architecture
+
+L'architecture suit un modèle distribué avec les composants suivants :
+
+- **Eureka Server** : Permet la découverte dynamique des services.
+- **Microservices** : `product-service` et `order-service` s'enregistrent auprès d'Eureka et communiquent via des appels REST.
+- **API Gateway** : Route les requêtes des clients vers les services appropriés.
+
+Le diagramme ci-dessous illustre les interactions entre les différents composants de l'architecture :
+
+![Architecture Diagram](./architecture-diagram.svg)
+
+### Détails du Diagramme
+
+Le diagramme d'architecture représente l'organisation et les interactions entre les différents composants de votre projet de microservices. Voici une explication détaillée :
+
+#### Eureka Server
+
+- **Rôle** : Serveur de découverte qui agit comme un annuaire centralisé. Les microservices (`Product-Service` et `Order-Service`) s'y enregistrent dynamiquement.
+- **Port** : 8761.
+- **Interaction** : Les autres services communiquent avec Eureka pour découvrir les adresses des services disponibles.
+
+#### Product-Service
+
+- **Rôle** : Microservice responsable de la gestion des produits.
+- **Port** : 8081.
+- **Interaction** : S'enregistre auprès d'Eureka et peut être appelé par d'autres services via l'API Gateway.
+
+#### Order-Service
+
+- **Rôle** : Microservice responsable de la gestion des commandes. Il communique avec `Product-Service` pour récupérer des informations sur les produits.
+- **Port** : 8082.
+- **Interaction** : S'enregistre auprès d'Eureka et peut être appelé via l'API Gateway.
+
+#### API Gateway
+
+- **Rôle** : Point d'entrée unique pour toutes les requêtes des clients. Il route les requêtes vers les microservices appropriés (`Product-Service` ou `Order-Service`).
+- **Port** : 8080.
+- **Interaction** : Utilise Eureka pour découvrir dynamiquement les services disponibles et rediriger les requêtes.
+
+### Flux de Communication
+
+1. Les clients envoient leurs requêtes à l'API Gateway.
+2. L'API Gateway interroge Eureka pour localiser les services nécessaires.
+3. Les requêtes sont ensuite routées vers les microservices appropriés (`Product-Service` ou `Order-Service`).
+4. Si nécessaire, `Order-Service` appelle `Product-Service` pour obtenir des informations supplémentaires.
+
+Ce diagramme illustre une architecture distribuée typique basée sur Spring Cloud, avec une découverte de services dynamique et une gestion centralisée des routes via l'API Gateway.
+
+---
+
+# Documentation Technique
+
+Ce document fournit des détails techniques sur la configuration et l'utilisation des outils et fonctionnalités du projet.
+
+## 1️⃣ Configuration de Log4j2
+
+Log4j2 est utilisé pour gérer les logs de manière professionnelle dans le service `Product-Service`.
+
+### Pourquoi utiliser Log4j2 ?
+
+- Suivre le comportement d'une application.
+- Aider au débogage.
+- Diagnostiquer des bugs en production.
+- Analyser les performances.
+
+### Étapes pour configurer Log4j2
+
+1. Ajoutez la dépendance suivante dans `pom.xml` :
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-log4j2</artifactId>
+</dependency>
+```
+
+2. Désactivez le starter Logback par défaut :
+
+```xml
+<exclusions>
+    <exclusion>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-logging</artifactId>
+    </exclusion>
+</exclusions>
+```
+
+3. Créez un fichier `log4j2.xml` dans `src/main/resources` :
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <File name="FileLogger" fileName="logs/app.log">
+            <PatternLayout pattern="%d %p %c [%t] %m%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="FileLogger"/>
+        </Root>
+    </Loggers>
+</Configuration>
+```
+
+4. Exemple d’utilisation dans une classe Java :
+
+```java
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+@RestController
+public class ProductController {
+    private static final Logger logger = LogManager.getLogger(ProductController.class);
+
+    @GetMapping("/products")
+    public List<Product> getProducts() {
+        logger.info("Fetching all products");
+        return productService.getAllProducts();
+    }
+}
+```
+
+### Niveaux de Logs
+
+| Niveau  | Usage                                      |
+|---------|--------------------------------------------|
+| TRACE   | Détail extrême (jamais en prod).           |
+| DEBUG   | Infos de débogage.                        |
+| INFO    | Suivi d’exécution normal.                 |
+| WARN    | Avertissements sans interruption.         |
+| ERROR   | Erreurs bloquantes ou critiques.          |
+
+## 2️⃣ Intégration de SonarQube
+
+SonarQube est utilisé pour analyser la qualité du code et détecter les bugs, failles de sécurité, et autres problèmes.
+
+### Pourquoi utiliser SonarQube ?
+
+- Détecter les bugs, failles de sécurité, code dupliqué, et problèmes de lisibilité.
+- Améliorer la maintenabilité du code.
+
+### Étapes pour installer et utiliser SonarQube
+
+1. Téléchargez et dézippez SonarQube Community Edition : [Lien](https://www.sonarsource.com/products/sonarqube/downloads/).
+
+2. Allez dans le dossier `bin/windows-x86-64` et lancez `StartSonar.bat`.
+
+3. Ouvrez [http://localhost:9000](http://localhost:9000) et connectez-vous avec :
+   - **Login** : `admin`
+   - **Mot de passe** : `admin`
+
+4. Installez SonarScanner : [Documentation](https://docs.sonarsource.com/sonarqube/latest/analyzing-source-code/scanners/sonarscanner/).
+
+5. Créez un fichier `sonar-project.properties` dans la racine du projet :
+
+```properties
+sonar.projectKey=demo-project
+sonar.projectName=Demo Project
+sonar.projectVersion=1.0
+sonar.sources=src
+sonar.java.binaries=target/classes
+sonar.host.url=http://localhost:9000
+sonar.login=TON_TOKEN
+```
+
+6. Lancez une analyse :
+
+```bash
+mvn clean install
+sonar-scanner
+```
+
+### Résultats de l’analyse
+
+Les résultats de l’analyse sont disponibles dans l’interface web de SonarQube.
