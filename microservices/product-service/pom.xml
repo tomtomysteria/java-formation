@@ -98,9 +98,10 @@
               <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
               <schemaIncludes>
                 <include>product.xsd</include>
+                <include>category.xsd</include>
               </schemaIncludes>
               <generatePackage>com.example.productservice.soap</generatePackage>
-              <outputDirectory>${project.build.directory}/generated-sources/jaxb</outputDirectory>
+              <generateDirectory>${project.build.directory}/generated-sources/jaxb</generateDirectory>
             </configuration>
           </execution>
         </executions>

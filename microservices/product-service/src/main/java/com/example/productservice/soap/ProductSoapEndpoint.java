@@ -16,6 +16,7 @@ public class ProductSoapEndpoint {
     GetProductResponse response = new GetProductResponse();
     response.setId(1L);
     response.setName("Sample Product");
+    response.setDescription("This is a sample product description.");
     response.setPrice(99.99);
     return response;
   }
