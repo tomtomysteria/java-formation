@@ -6,20 +6,18 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.example.productservice.model.Product;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @RestController
 @RequestMapping("/rest-wsdl")
 public class WsdlController {
 
-  private static final Logger logger = LoggerFactory.getLogger(WsdlController.class);
+  private static final Logger logger = LogManager.getLogger(WsdlController.class);
 
   @GetMapping("/test")
   public String test() {
+    logger.debug("Received request for test endpoint at /rest-wsdl/test");
     return "Test endpoint for WSDL";
   }
 

@@ -21,10 +21,18 @@ public class ProductController {
 
   @GetMapping
   public List<Product> getAllProducts() {
-    logger.info("Get products");
-    logger.debug("Test DEBUG log");
-    return List.of(
-        new Product(1L, "Chaise", 49.99),
-        new Product(2L, "Table", 89.99));
+    logger.info("Entering getAllProducts method");
+    try {
+      List<Product> products = List.of(
+          new Product(1L, "Chaise", 49.99),
+          new Product(2L, "Table", 89.99));
+      logger.info("Exiting getAllProducts method with result: {}", products);
+      return products;
+    } catch (Exception e) {
+      logger.error("An error occurred in getAllProducts: {}", e.getMessage(), e);
+      throw e;
+    } finally {
+      logger.warn("getAllProducts execution completed");
+    }
   }
 }
