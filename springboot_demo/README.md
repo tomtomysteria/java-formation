@@ -17,6 +17,7 @@ Ce projet est une démonstration des fonctionnalités de Spring Boot, incluant l
 ## Installation
 
 1. Clonez le dépôt :
+
    ```bash
    git clone <url-du-repo>
    ```
@@ -24,8 +25,9 @@ Ce projet est une démonstration des fonctionnalités de Spring Boot, incluant l
 2. Configurez la base de données dans `application.properties`.
 
 3. Lancez l'application :
+
    ```bash
-   ./mvnw spring-boot:run
+   mvn spring-boot:run
    ```
 
 ## Configuration de l'application
@@ -45,7 +47,7 @@ Vous pouvez modifier ces paramètres dans le fichier `application.properties` si
 2. Lancez l'application :
 
    ```bash
-   ./mvnw spring-boot:run
+   mvn spring-boot:run
    ```
 
 3. Accédez à l'application sur [http://localhost:8080](http://localhost:8080).
@@ -94,3 +96,53 @@ Les contributions sont les bienvenues. Veuillez suivre les étapes ci-dessous :
   - `SecurityConfig.java` : Configure la sécurité de l'application.
   - `JwtRequestFilter.java` : Filtre les requêtes pour valider les JWT.
   - `JwtUtil.java` : Gère la création et la validation des JWT.
+
+## Commandes Utiles
+
+### Lancer les Tests
+
+Pour exécuter les tests unitaires et d'intégration :
+
+```bash
+mvn test
+```
+
+### Nettoyer le Projet
+
+Pour supprimer les fichiers générés (compilation, rapports, etc.) :
+
+```bash
+mvn clean
+```
+
+### Réinstaller les Dépendances
+
+Pour forcer la réinstallation des dépendances Maven :
+
+```bash
+mvn clean install
+```
+
+### Lancer l'Application
+
+Pour démarrer l'application :
+
+```bash
+mvn spring-boot:run
+```
+
+### Construire le Projet
+
+Pour compiler et construire un fichier JAR exécutable :
+
+```bash
+mvn package
+```
+
+### Vérifier le Code
+
+Pour analyser le code avec des outils comme Checkstyle ou SpotBugs (si configurés) :
+
+```bash
+mvn verify
+```
