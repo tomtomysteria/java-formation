@@ -24,3 +24,22 @@ test_job:
     - echo "Tests (placeholder pour le moment)"
     - echo "Test Java - pas encore de framework intégré"
     - echo "Test Kotlin - pas encore de framework intégré"
+
+# Added Maven build and test steps for springboot_demo
+
+springboot_demo_build:
+  stage: build
+  script:
+    - echo "Building springboot_demo project..."
+    - cd springboot_demo && mvn clean package -Dspring.profiles.active=prod
+  artifacts:
+    paths:
+      - springboot_demo/target/*.jar
+
+springboot_demo_test:
+  stage: test
+  script:
+    - echo "Running tests for springboot_demo..."
+    - cd springboot_demo && mvn test
+  dependencies:
+    - springboot_demo_build

@@ -538,7 +538,7 @@ SonarQube est utilisé pour analyser la qualité du code et détecter les bugs, 
 - Détecter les bugs, failles de sécurité, code dupliqué, et problèmes de lisibilité.
 - Améliorer la maintenabilité du code.
 
-### Étapes pour installer et utiliser SonarQube
+### Étapes pour installer et utiliser SonarQube sur Windows
 
 1. Téléchargez et dézippez SonarQube Community Edition : [Lien](https://www.sonarsource.com/products/sonarqube/downloads/).
 

@@ -37,3 +37,4 @@ logs/
 
 ### SonarQube ###
 .scannerwork/
+sonar-project.properties

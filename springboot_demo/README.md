@@ -34,11 +34,7 @@ Ce projet est une démonstration des fonctionnalités de Spring Boot, incluant l
 
 L'application est configurée pour utiliser une base de données PostgreSQL. Voici les paramètres par défaut :
 
-- **URL** : `jdbc:postgresql://localhost:5432/spring_demo`
-- **Nom d'utilisateur** : `postgres`
-- **Mot de passe** : `postgres`
-
-Vous pouvez modifier ces paramètres dans le fichier `application.properties` situé dans `src/main/resources/`.
+Vous pouvez retrouver les paramètres dans le fichier `application.properties` situé dans `src/main/resources/`.
 
 ## Exécution
 

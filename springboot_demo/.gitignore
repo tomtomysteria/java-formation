@@ -31,3 +31,16 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignore .env file
+.env
+
+# Exclude application-secrets.properties
+application-secrets.properties
+
+### Logs ###
+logs/
+
+### SonarQube ###
+.scannerwork/
+sonar-project.properties
