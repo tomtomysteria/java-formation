@@ -29,19 +29,11 @@ test_job:
 
 springboot_demo_build:
   stage: build
+  before_script:
+    - echo "$APP_SECRETS" > springboot_demo/src/main/resources/application-secrets.properties
   script:
     - echo "Building springboot_demo project..."
     - cd springboot_demo && mvn clean package -Dspring.profiles.active=prod
   artifacts:
     paths:
       - springboot_demo/target/*.jar
-
-springboot_demo_test:
-  stage: test
-  before_script:
-    - echo "$APP_SECRETS" > springboot_demo/src/main/resources/application-secrets.properties
-  script:
-    - echo "Running tests for springboot_demo..."
-    - cd springboot_demo && mvn test
-  dependencies:
-    - springboot_demo_build
