@@ -8,6 +8,7 @@ before_script:
   - apt-get update && apt-get install -y make unzip wget
   - wget https://github.com/JetBrains/kotlin/releases/download/v2.1.21/kotlin-compiler-2.1.21.zip
   - unzip kotlin-compiler-2.1.21.zip -d /opt
+  - echo "$APP_SECRETS" > springboot_demo/src/main/resources/application-secrets.properties
 
 build_job:
   stage: build
