@@ -142,3 +142,31 @@ Pour analyser le code avec des outils comme Checkstyle ou SpotBugs (si configur�
 ```bash
 mvn verify
 ```
+
+## Qu'est-ce qu'une API ?
+
+Une API (Application Programming Interface) est un ensemble de règles et de conventions qui permet à des applications ou services de communiquer entre eux. Elle définit comment les requêtes doivent être formulées, quelles données peuvent être échangées, et comment les réponses sont structurées.
+
+### Exemple d'utilisation
+
+Dans une application web, une API peut être utilisée pour :
+
+- Récupérer des données depuis une base de données (ex. : liste des utilisateurs).
+- Envoyer des données pour créer ou mettre à jour des ressources (ex. : ajouter un produit).
+- Fournir des fonctionnalités spécifiques (ex. : authentification via JWT).
+
+Les API sont souvent organisées en endpoints, chacun correspondant à une action ou une ressource spécifique.
+
+## Swagger Documentation
+
+Swagger est intégré dans le projet pour permettre une documentation automatique et interactive des endpoints REST des différentes API.
+
+### Accéder à Swagger
+
+Pour accéder à l'interface Swagger, démarrez l'application et ouvrez un navigateur à l'URL suivante :
+
+```plaintext
+http://localhost:8085/swagger-ui/index.html
+```
+
+Cela vous permettra de visualiser et de tester les différents endpoints exposés par l'application.
