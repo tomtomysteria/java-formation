@@ -37,6 +37,14 @@ Ce projet contient plusieurs sous-projets Java et Kotlin, ainsi qu'une architect
 4. **springboot_demo** :
    - Démonstration d'une application Spring Boot avec des fonctionnalités comme l'authentification JWT et la gestion des utilisateurs.
 
+5. **user-management-frontend** :
+   - Une application frontend développée avec Angular pour la gestion des utilisateurs.
+   - Fonctionnalités principales :
+     - Intégration d'Angular Material pour le style et le thème.
+     - Rendu côté serveur (SSR) pour des performances et un SEO améliorés.
+     - Modèle `Product` pour représenter les données des produits.
+     - Tests unitaires avec Jasmine et Karma.
+
 ---
 
 ## CI/CD

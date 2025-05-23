@@ -20,6 +20,10 @@ Un projet démontrant l'architecture des microservices avec Spring Cloud, inclua
 
 Un projet démontrant l'utilisation de Spring Boot pour créer une application backend avec authentification JWT et gestion des utilisateurs.
 
+### 5. [User Management Frontend](./user-management-frontend/README.md)
+
+Un projet Angular pour la gestion des utilisateurs, intégrant Angular Material pour le style et le rendu côté serveur (SSR) pour des performances optimales.
+
 ## Structure générale
 
 Chaque projet contient :
