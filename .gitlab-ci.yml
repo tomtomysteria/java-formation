@@ -33,7 +33,12 @@ springboot_demo_build:
     - echo "$APP_SECRETS" > springboot_demo/src/main/resources/application-secrets.properties
   script:
     - echo "Building springboot_demo project..."
-    - cd springboot_demo && mvn clean package -Dspring.profiles.active=prod
-  artifacts:
-    paths:
-      - springboot_demo/target/*.jar
+    - cd springboot_demo && mvn clean compile -Dspring.profiles.active=prod
+
+springboot_demo_test:
+  stage: test
+  script:
+    - echo "Testing springboot_demo project..."
+    - cd springboot_demo && mvn test -Dspring.profiles.active=prod
+  dependencies:
+    - springboot_demo_build
