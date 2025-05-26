@@ -22,6 +22,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.util.Arrays;
+
 @Configuration
 public class SecurityConfig {
   private static final Logger logger = LogManager.getLogger(SecurityConfig.class);
@@ -38,6 +40,14 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtRequestFilter jwtRequestFilter)
       throws Exception {
     http.csrf(csrf -> csrf.disable())
+        .cors(cors -> cors.configurationSource(request -> {
+          var corsConfig = new org.springframework.web.cors.CorsConfiguration();
+          corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // Allow Angular's origin
+          corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // HTTP methods
+          corsConfig.setAllowedHeaders(Arrays.asList("*")); // Allow all headers
+          corsConfig.setAllowCredentials(true); // Allow credentials
+          return corsConfig;
+        }))
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/auth/**").permitAll()
             .requestMatchers("/swagger-ui/**", "/api-docs/**").permitAll()
