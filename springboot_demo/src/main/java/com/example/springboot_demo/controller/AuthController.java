@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.springboot_demo.dto.UserDTO;
 import com.example.springboot_demo.model.User;
 import com.example.springboot_demo.repository.UserRepository;
 import com.example.springboot_demo.security.JwtUtil;
@@ -29,7 +30,7 @@ public class AuthController {
   }
 
   @PostMapping("/login")
-  public Map<String, String> login(@RequestBody User user) {
+  public Map<String, String> login(@RequestBody UserDTO user) {
     User dbUser = userRepository.findByUsername(user.getUsername())
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Identifiants invalides"));
 

@@ -1,5 +1,6 @@
 package com.example.springboot_demo.controller;
 
+import com.example.springboot_demo.dto.UserDTO;
 import com.example.springboot_demo.model.Role;
 import com.example.springboot_demo.model.User;
 import com.example.springboot_demo.service.UserService;
@@ -12,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
@@ -36,36 +38,36 @@ public class UserController {
     return userService.getAllUsers();
   }
 
-  // Create a new user
-  @PostMapping
-  public ResponseEntity<String> createUser(@RequestBody User user) {
-    if (userService.findByUsername(user.getUsername()).isPresent()) {
-      return new ResponseEntity<>("Username already exists", HttpStatus.CONFLICT);
+  // Create a new user using UserDTO
+  @PostMapping()
+  public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) {
+    if (userService.findByUsername(userDTO.getUsername()).isPresent()) {
+      throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
     }
-    userService.saveUser(user);
-    return new ResponseEntity<>("User created successfully", HttpStatus.CREATED);
+    User savedUser = userService.saveUserFromDTO(userDTO);
+    return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
   }
 
-  // Get a user by ID
-  @GetMapping("/{id}")
-  public ResponseEntity<User> getUserById(@PathVariable Long id) {
-    return userService.getUserById(id)
+  // Get a user by UUID
+  @GetMapping("/{uuid}")
+  public ResponseEntity<User> getUserByUuid(@PathVariable String uuid) {
+    return userService.getUserByUuid(uuid)
         .map(ResponseEntity::ok)
         .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
   }
 
   // Update a user
-  @PutMapping("/{id}")
-  public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-    return userService.updateUser(id, userDetails)
+  @PutMapping("/{uuid}")
+  public ResponseEntity<User> updateUser(@PathVariable String uuid, @RequestBody UserDTO userDetails) {
+    return userService.updateUserFromDTO(uuid, userDetails)
         .map(updatedUser -> new ResponseEntity<>(updatedUser, HttpStatus.OK))
         .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
   }
 
   // Delete a user
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-    if (userService.deleteUser(id)) {
+  @DeleteMapping("/{uuid}")
+  public ResponseEntity<Void> deleteUser(@PathVariable String uuid) {
+    if (userService.deleteUserByUuid(uuid)) {
       return ResponseEntity.noContent().build();
     } else {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -90,11 +92,11 @@ public class UserController {
     return userService.findByUsername(username);
   }
 
-  @PostMapping("/{id}/roles")
+  @PostMapping("/{userUuid}/roles")
   @PreAuthorize("hasRole('ADMIN')")
-  public ResponseEntity<User> assignRolesToUser(@PathVariable Long id, @RequestBody Set<Role> roles) {
+  public ResponseEntity<User> assignRolesToUser(@PathVariable String userUuid, @RequestBody Set<Role> roles) {
     try {
-      User updatedUser = userService.assignRolesToUser(id, roles);
+      User updatedUser = userService.assignRolesToUserByUuid(userUuid, roles);
       return ResponseEntity.ok(updatedUser);
     } catch (RuntimeException e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

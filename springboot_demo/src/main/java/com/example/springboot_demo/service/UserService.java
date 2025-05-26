@@ -1,5 +1,6 @@
 package com.example.springboot_demo.service;
 
+import com.example.springboot_demo.dto.UserDTO;
 import com.example.springboot_demo.model.Role;
 import com.example.springboot_demo.model.User;
 import com.example.springboot_demo.repository.RoleRepository;
@@ -34,16 +35,18 @@ public class UserService {
     return userRepository.findAll();
   }
 
-  public Optional<User> getUserById(Long id) {
-    return userRepository.findById(id);
+  public Optional<User> getUserByUuid(String uuid) {
+    return userRepository.findByUuid(uuid);
   }
 
   public Optional<User> findByUsername(String username) {
     return userRepository.findByUsername(username);
   }
 
-  public User saveUser(User user) {
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
+  public User saveUserFromDTO(UserDTO userDTO) {
+    User user = new User();
+    user.setUsername(userDTO.getUsername());
+    user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
     // Ensure roles are valid and exist in the database
     Set<Role> validatedRoles = user.getRoles().stream()
@@ -55,8 +58,8 @@ public class UserService {
     return userRepository.save(user);
   }
 
-  public Optional<User> updateUser(Long id, User userDetails) {
-    return userRepository.findById(id).map(user -> {
+  public Optional<User> updateUserFromDTO(String uuid, UserDTO userDetails) {
+    return userRepository.findByUuid(uuid).map(user -> {
       user.setUsername(userDetails.getUsername());
       user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
       user.setRoles(userDetails.getRoles());
@@ -64,18 +67,17 @@ public class UserService {
     });
   }
 
-  public boolean deleteUser(Long id) {
-    if (userRepository.existsById(id)) {
-      userRepository.deleteById(id);
+  public boolean deleteUserByUuid(String uuid) {
+    return userRepository.findByUuid(uuid).map(user -> {
+      userRepository.delete(user);
       return true;
-    }
-    return false;
+    }).orElse(false);
   }
 
-  public User assignRolesToUser(Long userId, Set<Role> roles) {
-    logger.info("Attempting to assign roles to user with ID: {}", userId);
+  public User assignRolesToUserByUuid(String userUuid, Set<Role> roles) {
+    logger.info("Attempting to assign roles to user with UUID: {}", userUuid);
 
-    return userRepository.findById(userId).map(user -> {
+    return userRepository.findByUuid(userUuid).map(user -> {
       logger.info("User found: {}", user.getUsername());
       logger.info("Roles to assign: {}", roles);
 
@@ -91,7 +93,7 @@ public class UserService {
       logger.info("Roles successfully assigned to user: {}", updatedUser.getUsername());
       return updatedUser;
     }).orElseThrow(() -> {
-      logger.error("User with ID {} not found", userId);
+      logger.error("User with UUID {} not found", userUuid);
       return new RuntimeException("User not found");
     });
   }

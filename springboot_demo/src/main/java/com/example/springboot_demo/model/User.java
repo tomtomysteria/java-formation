@@ -1,5 +1,6 @@
 package com.example.springboot_demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,6 +12,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "app_user")
@@ -20,8 +22,13 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(unique = true, nullable = false, updatable = false)
+  private String uuid = UUID.randomUUID().toString();
+
   @Column(unique = true)
   private String username;
+
+  @JsonIgnore
   private String password;
 
   @ManyToMany(fetch = FetchType.EAGER)
@@ -56,7 +63,7 @@ public class User {
   }
 
   public String getPassword() {
-    return password;
+    return null; // Prevent password from being exposed
   }
 
   public void setPassword(String password) {
@@ -69,5 +76,10 @@ public class User {
 
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
+  }
+
+  // Getter for UUID
+  public String getUuid() {
+    return uuid;
   }
 }
