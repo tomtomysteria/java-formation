@@ -436,7 +436,7 @@ En suivant ce modèle, vos tests seront plus clairs, maintenables et faciles à 
 
 Ce document fournit des détails techniques sur la configuration et l'utilisation des outils et fonctionnalités du projet.
 
-## 1️⃣ Configuration de Log4j2
+## Configuration de Log4j2
 
 Log4j2 est utilisé pour gérer les logs de manière professionnelle dans le service `Product-Service`.
 
@@ -519,7 +519,7 @@ public class ProductController {
 | WARN    | Avertissements sans interruption.         |
 | ERROR   | Erreurs bloquantes ou critiques.          |
 
-## 2️⃣ Intégration de SonarQube
+## Intégration de SonarQube
 
 SonarQube est utilisé pour analyser la qualité du code et détecter les bugs, failles de sécurité, et autres problèmes.
 
@@ -562,3 +562,19 @@ sonar-scanner
 ### Résultats de l’analyse
 
 Les résultats de l’analyse sont disponibles dans l’interface web de SonarQube.
+
+## CORS
+
+CORS (Cross-Origin Resource Sharing) est un mécanisme qui permet à une application web exécutée sur un domaine (par exemple, `http://localhost:4200` pour le frontend Angular) d'accéder aux ressources d'un autre domaine (par exemple, `http://localhost:8080` pour le backend Spring Boot). Dans le contexte de `springboot_demo`, CORS est configuré pour permettre au frontend `user-management-frontend` de communiquer avec le backend en toute sécurité.
+
+### Configuration Technique
+
+Dans `SecurityConfig`, les règles CORS sont définies pour autoriser les requêtes provenant de `http://localhost:4200`. Cela inclut :
+
+- Les méthodes HTTP autorisées : `GET`, `POST`, `PUT`, `DELETE`, `OPTIONS`.
+- Les en-têtes autorisés : tous les en-têtes (`*`).
+- L'autorisation des cookies et des informations d'identification.
+
+### Importance Métier
+
+Cette configuration garantit une expérience utilisateur fluide en permettant au frontend et au backend de fonctionner ensemble, même lorsqu'ils sont hébergés sur des domaines différents. Cela est essentiel pour les applications modernes où les composants frontend et backend sont souvent développés et déployés séparément.
