@@ -10,32 +10,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.springboot_demo.dto.UserDTO;
-import com.example.springboot_demo.model.User;
-import com.example.springboot_demo.repository.UserRepository;
+import com.example.springboot_demo.dto.LoginDTO;
 import com.example.springboot_demo.security.JwtUtil;
+import com.example.springboot_demo.service.UserService;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
   private final JwtUtil jwtUtil;
-  private final UserRepository userRepository;
+  private final UserService userService;
   private final PasswordEncoder passwordEncoder;
 
-  public AuthController(JwtUtil jwtUtil, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+  public AuthController(JwtUtil jwtUtil, UserService userService, PasswordEncoder passwordEncoder) {
     this.jwtUtil = jwtUtil;
-    this.userRepository = userRepository;
+    this.userService = userService;
     this.passwordEncoder = passwordEncoder;
   }
 
   @PostMapping("/login")
-  public Map<String, String> login(@RequestBody UserDTO user) {
-    User dbUser = userRepository.findByUsername(user.getUsername())
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Identifiants invalides"));
-
-    if (passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
-      String token = jwtUtil.generateToken(dbUser.getUsername());
+  public Map<String, String> login(@RequestBody LoginDTO loginDTO) {
+    System.out.println("Login attempt for user: " + loginDTO.getUsername());
+    String dbPassword = userService.getPasswordByUsername(loginDTO.getUsername());
+    System.out.println("DB Password: " + dbPassword);
+    if (passwordEncoder.matches(loginDTO.getPassword(), dbPassword)) {
+      String token = jwtUtil.generateToken(loginDTO.getUsername());
       return Map.of("token", token);
     } else {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Identifiants invalides");
