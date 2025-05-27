@@ -1,5 +1,6 @@
 package com.example.springboot_demo.controller;
 
+import com.example.springboot_demo.dto.UpdateUserDTO;
 import com.example.springboot_demo.dto.UserDTO;
 import com.example.springboot_demo.model.Role;
 import com.example.springboot_demo.model.User;
@@ -58,7 +59,7 @@ public class UserController {
 
   // Update a user
   @PutMapping("/{uuid}")
-  public ResponseEntity<User> updateUser(@PathVariable String uuid, @RequestBody UserDTO userDetails) {
+  public ResponseEntity<User> updateUser(@PathVariable String uuid, @RequestBody UpdateUserDTO userDetails) {
     return userService.updateUserFromDTO(uuid, userDetails)
         .map(updatedUser -> new ResponseEntity<>(updatedUser, HttpStatus.OK))
         .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
