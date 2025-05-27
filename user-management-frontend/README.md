@@ -54,6 +54,12 @@ ng e2e
 
 Angular CLI ne fournit pas de framework de test end-to-end par défaut. Vous pouvez choisir celui qui correspond à vos besoins.
 
+## Intégration Backend
+
+Ce projet utilise le backend `springboot_demo` pour gérer les utilisateurs. Assurez-vous que le backend est en cours d'exécution avant de démarrer le frontend.
+
+Pour plus d'informations sur le backend `springboot_demo`, consultez son [README](../springboot_demo/README.md).
+
 ## Ressources Supplémentaires
 
 Pour plus d'informations sur l'utilisation de l'Angular CLI, y compris des références détaillées sur les commandes, visitez la page [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli).

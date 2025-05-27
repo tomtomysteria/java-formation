@@ -74,6 +74,12 @@ Pour exécuter les tests unitaires, exécutez :
 ng test
 ```
 
+## Dépendance Backend
+
+Le frontend `user-management-frontend` repose sur le backend `springboot_demo` pour la gestion des utilisateurs. Veuillez démarrer le backend avant d'utiliser le frontend.
+
+Pour plus d'informations sur le backend `springboot_demo`, consultez son [README](../springboot_demo/README.md).
+
 ## Ressources Supplémentaires
 
 - [Documentation Angular CLI](https://angular.dev/tools/cli)

@@ -23,6 +23,7 @@ Un projet démontrant l'utilisation de Spring Boot pour créer une application b
 ### 5. [User Management Frontend](./user-management-frontend/README.md)
 
 Un projet Angular pour la gestion des utilisateurs, intégrant Angular Material pour le style et le rendu côté serveur (SSR) pour des performances optimales.
+L'application s'appuie sur le backend `springboot_demo` pour gérer les utilisateurs. Ce backend fournit des API REST pour les opérations CRUD sur les utilisateurs.
 
 ## Structure générale
 

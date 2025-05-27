@@ -44,6 +44,7 @@ Ce projet contient plusieurs sous-projets Java et Kotlin, ainsi qu'une architect
      - Rendu côté serveur (SSR) pour des performances et un SEO améliorés.
      - Modèle `Product` pour représenter les données des produits.
      - Tests unitaires avec Jasmine et Karma.
+   - Communication avec le backend `springboot_demo` pour effectuer des opérations de gestion des utilisateurs.
 
 ---
 
