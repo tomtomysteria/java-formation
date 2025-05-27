@@ -1,0 +1,15 @@
+<h2>Liste des utilisateurs</h2>
+<p *ngIf="isLoading$ | async">Chargement des utilisateurs...</p>
+<div style="display: flex; gap: 10px; margin-bottom: 10px;">
+  <button mat-raised-button color="accent" (click)="refreshUsers()">Rafraîchir</button>
+  <button mat-raised-button color="primary" [routerLink]="['/users/add']">Ajouter un utilisateur</button>
+</div>
+<ul>
+  <li *ngFor="let user of users$ | async" style="display: flex; align-items: center; gap: 10px;">
+    {{ user.username }}
+    <a mat-button color="primary" [routerLink]="['/users', user.uuid]">Details</a>
+    <a mat-button color="accent" [routerLink]="['/users/edit', user.uuid]">Modifier</a>
+    <button mat-button color="warn" (click)="deleteUser(user.uuid)">Supprimer</button>
+  </li>
+</ul>
+<p *ngIf="!(isLoading$ | async) && (users$ | async)?.length === 0">Aucun utilisateur trouvé.</p>

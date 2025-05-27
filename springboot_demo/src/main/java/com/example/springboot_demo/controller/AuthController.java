@@ -32,7 +32,6 @@ public class AuthController {
   public Map<String, String> login(@RequestBody LoginDTO loginDTO) {
     System.out.println("Login attempt for user: " + loginDTO.getUsername());
     String dbPassword = userService.getPasswordByUsername(loginDTO.getUsername());
-    System.out.println("DB Password: " + dbPassword);
     if (passwordEncoder.matches(loginDTO.getPassword(), dbPassword)) {
       String token = jwtUtil.generateToken(loginDTO.getUsername());
       return Map.of("token", token);

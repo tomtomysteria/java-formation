@@ -1,0 +1,7 @@
+<h2>Détails de l'utilisateur</h2>
+<div *ngIf="user$ | async as user">
+  <p>ID : {{ user.uuid }}</p>
+  <p>Nom d'utilisateur : {{ user.username }}</p>
+  <p>Rôles : {{ getRoleNames(user.roles) }}</p>
+</div>
+<p *ngIf="!(user$ | async)">Chargement...</p>

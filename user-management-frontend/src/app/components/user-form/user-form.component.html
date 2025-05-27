@@ -1,0 +1,30 @@
+<h2>{{ isEditMode ? 'Modifier' : 'Ajouter' }} un utilisateur</h2>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="username">Nom d'utilisateur</label>
+    <input id="username" formControlName="username" type="text" />
+    <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched">
+      Le nom d'utilisateur est requis.
+    </div>
+  </div>
+
+  <div>
+    <label for="password">Mot de passe</label>
+    <input id="password" formControlName="password" type="password" />
+    <div *ngIf="!isEditMode && userForm.get('password')?.invalid && userForm.get('password')?.touched">
+      Le mot de passe est requis.
+    </div>
+  </div>
+
+  <div>
+    <label for="roles">Rôles</label>
+    <input id="roles" formControlName="roles" type="text" />
+    <div *ngIf="userForm.get('roles')?.invalid && userForm.get('roles')?.touched">
+      Les rôles sont requis.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!isEditMode && (userForm.get('username')?.invalid || userForm.get('roles')?.invalid || userForm.get('password')?.invalid) || (isEditMode && (userForm.get('username')?.invalid || userForm.get('roles')?.invalid))">
+    {{ isEditMode ? 'Mettre à jour' : 'Ajouter' }}
+  </button>
+</form>
