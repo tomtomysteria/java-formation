@@ -53,7 +53,10 @@ public class SecurityConfig {
             .requestMatchers("/swagger-ui/**", "/api-docs/**").permitAll()
             .requestMatchers("/admin/**").hasRole("ADMIN")
             .requestMatchers("/users/profile").hasAnyRole("ADMIN", "USER")
-            .requestMatchers("/users/**").hasRole("ADMIN")
+
+            // Uncomment the following line to restrict access to user management endpoints
+            // .requestMatchers("/users/**").hasRole("ADMIN")
+
             .requestMatchers("/**").permitAll()
             .anyRequest().authenticated())
         .sessionManagement(session -> session
@@ -65,12 +68,19 @@ public class SecurityConfig {
 
   @Bean
   public UserDetailsService userDetailsService(UserRepository userRepository) {
-    return username -> userRepository.findByUsername(username)
-        .map(user -> User.withUsername(user.getUsername())
-            .password(user.getPassword())
-            .roles(user.getRoles().stream().map(Role::getName).toArray(String[]::new))
-            .build())
-        .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+    return username -> {
+      String password = userRepository.findPasswordByUsername(username);
+      if (password == null) {
+        throw new UsernameNotFoundException("Password not found for user: " + username);
+      }
+
+      return userRepository.findByUsername(username)
+          .map(user -> User.withUsername(user.getUsername())
+              .password(password)
+              .roles(user.getRoles().stream().map(Role::getName).toArray(String[]::new))
+              .build())
+          .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+    };
   }
 
   @Bean

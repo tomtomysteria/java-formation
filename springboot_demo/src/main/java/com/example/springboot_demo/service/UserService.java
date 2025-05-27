@@ -1,6 +1,8 @@
 package com.example.springboot_demo.service;
 
+import com.example.springboot_demo.dto.UpdateUserDTO;
 import com.example.springboot_demo.dto.UserDTO;
+import com.example.springboot_demo.exception.UserNotFoundException;
 import com.example.springboot_demo.model.Role;
 import com.example.springboot_demo.model.User;
 import com.example.springboot_demo.repository.RoleRepository;
@@ -48,21 +50,22 @@ public class UserService {
     user.setUsername(userDTO.getUsername());
     user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
-    // Ensure roles are valid and exist in the database
-    Set<Role> validatedRoles = user.getRoles().stream()
-        .map(role -> roleRepository.findByName(role.getName())
-            .orElseThrow(() -> new RuntimeException("Role not found: " + role.getName())))
-        .collect(Collectors.toSet());
-
+    Set<Role> validatedRoles = validateAndFetchRoles(userDTO.getRoles());
     user.setRoles(validatedRoles);
     return userRepository.save(user);
   }
 
-  public Optional<User> updateUserFromDTO(String uuid, UserDTO userDetails) {
+  public Optional<User> updateUserFromDTO(String uuid, UpdateUserDTO userDetails) {
     return userRepository.findByUuid(uuid).map(user -> {
       user.setUsername(userDetails.getUsername());
-      user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
-      user.setRoles(userDetails.getRoles());
+
+      String password = userDetails.getPassword();
+      if (password != null && !password.isEmpty()) {
+        user.setPassword(passwordEncoder.encode(password));
+      }
+
+      Set<Role> validatedRoles = validateAndFetchRoles(userDetails.getRoles());
+      user.setRoles(validatedRoles);
       return userRepository.save(user);
     });
   }
@@ -81,12 +84,7 @@ public class UserService {
       logger.info("User found: {}", user.getUsername());
       logger.info("Roles to assign: {}", roles);
 
-      // Validate roles
-      Set<Role> validatedRoles = roles.stream()
-          .map(role -> roleRepository.findByName(role.getName())
-              .orElseThrow(() -> new RuntimeException("Role not found: " + role.getName())))
-          .collect(Collectors.toSet());
-
+      Set<Role> validatedRoles = validateAndFetchRoles(roles.stream().map(Role::getName).collect(Collectors.toSet()));
       user.setRoles(validatedRoles);
       User updatedUser = userRepository.save(user);
 
@@ -100,5 +98,21 @@ public class UserService {
 
   public Set<Role> getAllRoles() {
     return Set.copyOf(roleRepository.findAll());
+  }
+
+  private Set<Role> validateAndFetchRoles(Set<String> roleNames) {
+    return roleNames.stream()
+        .map(roleName -> roleRepository.findByName(roleName)
+            .orElseThrow(() -> new RuntimeException("Role not found: " + roleName)))
+        .collect(Collectors.toSet());
+  }
+
+  public String getPasswordByUsername(String username) {
+    String password = userRepository.findPasswordByUsername(username);
+    if (password == null) {
+      throw new UserNotFoundException("User not found or password is null");
+    }
+    logger.info("Fetching password for user: {}", password);
+    return password;
   }
 }

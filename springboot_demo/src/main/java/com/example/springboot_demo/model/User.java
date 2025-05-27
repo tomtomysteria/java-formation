@@ -20,6 +20,7 @@ public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @JsonIgnore
   private Long id;
 
   @Column(unique = true, nullable = false, updatable = false)
@@ -47,7 +48,7 @@ public class User {
 
   // Getters & Setters
   public Long getId() {
-    return id;
+    return null;
   }
 
   public void setId(Long id) {
