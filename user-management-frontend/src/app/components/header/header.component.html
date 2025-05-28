@@ -1,1 +1,4 @@
 <h1>Application Angular</h1>
+<button *ngIf="showAuthButton" (click)="handleAuthAction()">
+  {{ isAuthenticated ? 'Se déconnecter' : 'Se connecter' }}
+</button>

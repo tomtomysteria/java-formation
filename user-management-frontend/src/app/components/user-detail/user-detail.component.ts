@@ -4,7 +4,7 @@ import { UserService } from '../../services/user.service';
 import { Observable } from 'rxjs';
 import { User } from '../../models/user.model';
 import { CommonModule } from '@angular/common';
-import { Role } from '../../models/user.model';
+import { getRolesCodes } from '../../utils/role-utils';
 
 @Component({
   selector: 'app-user-detail',
@@ -15,20 +15,14 @@ import { Role } from '../../models/user.model';
 })
 export class UserDetailComponent implements OnInit {
   user$!: Observable<User>;
+  getRolesCodes = getRolesCodes;
 
-  constructor(
-    private route: ActivatedRoute,
-    private userService: UserService
-  ) {}
+  constructor(private route: ActivatedRoute, private userService: UserService) {}
 
   ngOnInit(): void {
     const userUuid = this.route.snapshot.paramMap.get('uuid');
     if (userUuid) {
       this.user$ = this.userService.getUserByUuid(userUuid);
     }
-  }
-
-  getRoleNames(roles: Role[]): string {
-    return roles.map(role => role.name).join(', ');
   }
 }

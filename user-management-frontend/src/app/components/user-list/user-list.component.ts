@@ -4,18 +4,21 @@ import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { getRolesLabels } from '../../utils/role-utils';
+import { MainUserHighlightPipe } from '../../pipes/main-user-highlight.pipe';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, MainUserHighlightPipe],
   templateUrl: './user-list.component.html',
 })
 export class UserListComponent implements OnInit {
   users$!: Observable<User[]>;
   isLoading$!: Observable<boolean>;
+  getRolesLabels = getRolesLabels;
 
-  constructor(readonly userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.users$ = this.userService.users$;

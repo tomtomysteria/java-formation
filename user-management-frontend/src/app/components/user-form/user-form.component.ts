@@ -7,6 +7,7 @@ import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-user-form',
+  standalone: true, // Rend le composant autonome
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.css'],
   imports: [CommonModule, ReactiveFormsModule]

@@ -3,6 +3,7 @@ import { Product } from '../../models/product.model';
 
 @Component({
   selector: 'app-user',
+  standalone: true, // Rend le composant autonome
   imports: [],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'

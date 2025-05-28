@@ -6,7 +6,7 @@
 </div>
 <ul>
   <li *ngFor="let user of users$ | async" style="display: flex; align-items: center; gap: 10px;">
-    {{ user.username }}
+    {{ user.username | titlecase | mainUserHighlight }} ({{ getRolesLabels(user.roles) }})
     <a mat-button color="primary" [routerLink]="['/users', user.uuid]">Details</a>
     <a mat-button color="accent" [routerLink]="['/users/edit', user.uuid]">Modifier</a>
     <button mat-button color="warn" (click)="deleteUser(user.uuid)">Supprimer</button>
