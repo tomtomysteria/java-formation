@@ -54,11 +54,45 @@ ng e2e
 
 Angular CLI ne fournit pas de framework de test end-to-end par défaut. Vous pouvez choisir celui qui correspond à vos besoins.
 
+Pour plus d'informations sur le backend `springboot_demo`, consultez son [README](../springboot_demo/README.md).
+
+## Autres Commandes Utiles
+
+### Nettoyer le Cache Angular
+
+Si vous rencontrez des problèmes liés au cache, vous pouvez exécuter la commande suivante pour nettoyer le cache Angular :
+
+```bash
+ng cache clean
+```
+
+### Vérifier la Version d'Angular
+
+Pour vérifier la version d'Angular CLI installée, utilisez :
+
+```bash
+ng version
+```
+
+### Lancer le Serveur SSR
+
+Pour démarrer le serveur de rendu côté serveur (SSR), exécutez :
+
+```bash
+npm run serve:ssr:user-management-frontend
+```
+
+### Mettre à Jour les Dépendances Angular
+
+Pour mettre à jour Angular CLI et les dépendances associées, exécutez :
+
+```bash
+ng update @angular/cli @angular/core
+```
+
 ## Intégration Backend
 
 Ce projet utilise le backend `springboot_demo` pour gérer les utilisateurs. Assurez-vous que le backend est en cours d'exécution avant de démarrer le frontend.
-
-Pour plus d'informations sur le backend `springboot_demo`, consultez son [README](../springboot_demo/README.md).
 
 ## Ressources Supplémentaires
 

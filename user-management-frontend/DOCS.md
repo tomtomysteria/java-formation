@@ -125,6 +125,208 @@ Le frontend `user-management-frontend` repose sur le backend `springboot_demo` p
 
 Pour plus d'informations sur le backend `springboot_demo`, consultez son [README](../springboot_demo/README.md).
 
+## Commandes Angular CLI pour Générer des Éléments
+
+### Générer un Composant
+
+Pour créer un nouveau composant Angular :
+
+```bash
+ng generate component <nom-du-composant>
+```
+
+Alias :
+
+```bash
+ng g c <nom-du-composant>
+```
+
+Exemple :
+
+```bash
+ng g c user-profile
+```
+
+### Générer un Service
+
+Pour créer un nouveau service Angular :
+
+```bash
+ng generate service <nom-du-service>
+```
+
+Alias :
+
+```bash
+ng g s <nom-du-service>
+```
+
+Exemple :
+
+```bash
+ng g s auth
+```
+
+### Générer un Module
+
+Pour créer un nouveau module Angular :
+
+```bash
+ng generate module <nom-du-module>
+```
+
+Alias :
+
+```bash
+ng g m <nom-du-module>
+```
+
+Exemple :
+
+```bash
+ng g m user
+```
+
+### Générer une Directive
+
+Pour créer une nouvelle directive Angular :
+
+```bash
+ng generate directive <nom-de-la-directive>
+```
+
+Alias :
+
+```bash
+ng g d <nom-de-la-directive>
+```
+
+Exemple :
+
+```bash
+ng g d highlight
+```
+
+### Générer un Pipe
+
+Pour créer un nouveau pipe Angular :
+
+```bash
+ng generate pipe <nom-du-pipe>
+```
+
+Alias :
+
+```bash
+ng g p <nom-du-pipe>
+```
+
+Exemple :
+
+```bash
+ng g p date-format
+```
+
+### Générer un Guard
+
+Pour créer un nouveau guard Angular :
+
+```bash
+ng generate guard <nom-du-guard>
+```
+
+Alias :
+
+```bash
+ng g g <nom-du-guard>
+```
+
+Exemple :
+
+```bash
+ng g g auth
+```
+
+### Générer une Interface
+
+Pour créer une nouvelle interface TypeScript :
+
+```bash
+ng generate interface <nom-de-l-interface>
+```
+
+Alias :
+
+```bash
+ng g i <nom-de-l-interface>
+```
+
+Exemple :
+
+```bash
+ng g i user
+```
+
+### Générer une Classe
+
+Pour créer une nouvelle classe TypeScript :
+
+```bash
+ng generate class <nom-de-la-classe>
+```
+
+Alias :
+
+```bash
+ng g cl <nom-de-la-classe>
+```
+
+Exemple :
+
+```bash
+ng g cl user
+```
+
+### Générer un Enum
+
+Pour créer un nouvel enum TypeScript :
+
+```bash
+ng generate enum <nom-de-l-enum>
+```
+
+Alias :
+
+```bash
+ng g e <nom-de-l-enum>
+```
+
+Exemple :
+
+```bash
+ng g e user-role
+```
+
+### Générer un Resolver
+
+Pour créer un nouveau resolver Angular :
+
+```bash
+ng generate resolver <nom-du-resolver>
+```
+
+Alias :
+
+```bash
+ng g r <nom-du-resolver>
+```
+
+Exemple :
+
+```bash
+ng g r user
+```
+
 ## Ressources Supplémentaires
 
 - [Documentation Angular CLI](https://angular.dev/tools/cli)
