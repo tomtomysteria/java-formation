@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { AdminGuard } from './guards/admin.guard';
+import { RoleGuard } from './guards/role.guard';
 
 export const routes: Routes = [
   {
     path: 'users',
-    canActivate: [AdminGuard],
+    canActivate: [RoleGuard],
     children: [
       { path: 'add', loadComponent: () => import('./components/user-form/user-form.component').then(m => m.UserFormComponent) },
       { path: 'edit/:uuid', loadComponent: () => import('./components/user-form/user-form.component').then(m => m.UserFormComponent)},

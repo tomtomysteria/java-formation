@@ -15,16 +15,16 @@ export class HeaderComponent {
   isAuthenticated = false;
   showAuthButton = true;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(public authService: AuthService, private router: Router) {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
       this.showAuthButton = event.url !== '/login';
-      this.isAuthenticated = !!this.authService.getToken();
+      this.isAuthenticated = this.authService.isAuthenticated();
     });
   }
 
   handleAuthAction(): void {
     if (this.isAuthenticated) {
-      this.authService.setToken(''); // Clear the token
+      this.authService.logout();
       this.router.navigate(['/login']); // Redirect to login page
     } else {
       this.router.navigate(['/login']); // Navigate to login page

@@ -1,4 +1,4 @@
-<h1>Application Angular</h1>
+<h1 [ngClass]="{ 'admin-title': authService.getUserRoles().includes('ADMIN') }">Application Angular</h1>
 <button *ngIf="showAuthButton" (click)="handleAuthAction()">
   {{ isAuthenticated ? 'Se déconnecter' : 'Se connecter' }}
 </button>
