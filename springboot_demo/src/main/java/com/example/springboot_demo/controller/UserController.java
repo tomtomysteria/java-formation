@@ -43,6 +43,7 @@ public class UserController {
   @PostMapping()
   public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) {
     if (userService.findByUsername(userDTO.getUsername()).isPresent()) {
+      logger.warn("Username already exists: {}", userDTO.getUsername());
       throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already exists");
     }
     User savedUser = userService.saveUserFromDTO(userDTO);
@@ -52,25 +53,36 @@ public class UserController {
   // Get a user by UUID
   @GetMapping("/{uuid}")
   public ResponseEntity<User> getUserByUuid(@PathVariable String uuid) {
-    return userService.getUserByUuid(uuid)
-        .map(ResponseEntity::ok)
-        .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    Optional<User> user = userService.getUserByUuid(uuid);
+    if (user.isPresent()) {
+      return new ResponseEntity<>(user.get(), HttpStatus.OK);
+    } else {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+    }
   }
 
   // Update a user
   @PutMapping("/{uuid}")
   public ResponseEntity<User> updateUser(@PathVariable String uuid, @RequestBody UpdateUserDTO userDetails) {
     return userService.updateUserFromDTO(uuid, userDetails)
-        .map(updatedUser -> new ResponseEntity<>(updatedUser, HttpStatus.OK))
-        .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        .map(updatedUser -> {
+          logger.info("User updated successfully with UUID: {}", uuid);
+          return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        })
+        .orElseGet(() -> {
+          logger.warn("User not found for update with UUID: {}", uuid);
+          return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        });
   }
 
   // Delete a user
   @DeleteMapping("/{uuid}")
   public ResponseEntity<Void> deleteUser(@PathVariable String uuid) {
     if (userService.deleteUserByUuid(uuid)) {
+      logger.info("User deleted successfully with UUID: {}", uuid);
       return ResponseEntity.noContent().build();
     } else {
+      logger.warn("User not found for deletion with UUID: {}", uuid);
       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
   }
@@ -79,7 +91,7 @@ public class UserController {
   @GetMapping("/profile")
   @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
   public ResponseEntity<Map<String, String>> getProfile(Authentication authentication) {
-    logger.info("TEST PROFILE LOG");
+    logger.info("Fetching profile for logged-in user");
     String username = authentication.getName();
     String role = authentication.getAuthorities().stream()
         .map(GrantedAuthority::getAuthority)
