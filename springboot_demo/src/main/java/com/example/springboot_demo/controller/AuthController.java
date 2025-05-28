@@ -1,6 +1,7 @@
 package com.example.springboot_demo.controller;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.springboot_demo.dto.LoginDTO;
+import com.example.springboot_demo.model.Role;
 import com.example.springboot_demo.security.JwtUtil;
 import com.example.springboot_demo.service.UserService;
 
@@ -33,7 +35,9 @@ public class AuthController {
     System.out.println("Login attempt for user: " + loginDTO.getUsername());
     String dbPassword = userService.getPasswordByUsername(loginDTO.getUsername());
     if (passwordEncoder.matches(loginDTO.getPassword(), dbPassword)) {
-      String token = jwtUtil.generateToken(loginDTO.getUsername());
+      // Fetch roles for the user
+      Set<Role> roles = userService.getRolesByUsername(loginDTO.getUsername());
+      String token = jwtUtil.generateToken(loginDTO.getUsername(), roles);
       return Map.of("token", token);
     } else {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Identifiants invalides");

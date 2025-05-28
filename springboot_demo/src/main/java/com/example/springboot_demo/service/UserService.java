@@ -115,4 +115,10 @@ public class UserService {
     logger.info("Fetching password for user: {}", password);
     return password;
   }
+
+  public Set<Role> getRolesByUsername(String username) {
+    return userRepository.findByUsername(username)
+        .map(User::getRoles)
+        .orElseThrow(() -> new UserNotFoundException("User not found: " + username));
+  }
 }

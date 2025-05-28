@@ -1,5 +1,6 @@
 package com.example.springboot_demo.security;
 
+import com.example.springboot_demo.model.Role;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class JwtUtil {
@@ -15,9 +18,13 @@ public class JwtUtil {
   private static final Key SECRET_KEY = Keys
       .hmacShaKeyFor(Base64.getDecoder().decode("a2szUGcxWjwyYhtHdj09RzB9PC1YfHhJZGZPRHNaUkt1"));
 
-  public String generateToken(String username) {
+  public String generateToken(String username, Set<Role> roles) {
+    List<String> roleNames = roles.stream()
+        .map(Role::getName)
+        .toList();
     return Jwts.builder()
         .setSubject(username)
+        .claim("roles", roleNames) // Ajouter les noms des rôles comme claim
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1h
         .signWith(SECRET_KEY)

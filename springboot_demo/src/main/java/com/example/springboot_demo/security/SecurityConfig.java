@@ -53,10 +53,8 @@ public class SecurityConfig {
             .requestMatchers("/swagger-ui/**", "/api-docs/**").permitAll()
             .requestMatchers("/admin/**").hasRole("ADMIN")
             .requestMatchers("/users/profile").hasAnyRole("ADMIN", "USER")
-
             // Uncomment the following line to restrict access to user management endpoints
-            // .requestMatchers("/users/**").hasRole("ADMIN")
-
+            .requestMatchers("/users/**").hasRole("ADMIN")
             .requestMatchers("/**").permitAll()
             .anyRequest().authenticated())
         .sessionManagement(session -> session
