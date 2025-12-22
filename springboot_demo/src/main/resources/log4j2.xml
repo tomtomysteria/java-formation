@@ -4,16 +4,19 @@
     <Console name="Console" target="SYSTEM_OUT">
       <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
     </Console>
-    <File name="FileLogger" fileName="logs/app.log">
+
+    <RollingFile name="FileLogger" fileName="logs/app.log" filePattern="logs/app-%d{yyyy-MM-dd}-%i.log.gz">
       <PatternLayout pattern="%d %p %c [%t] %m%n"/>
+
       <Policies>
-        <TimeBasedTriggeringPolicy interval="1" modulate="true" />
-        <SizeBasedTriggeringPolicy size="10MB" />
+        <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+        <SizeBasedTriggeringPolicy size="10MB"/>
       </Policies>
-      <DefaultRolloverStrategy max="30" />
-      <FilePattern>logs/app-%d{yyyy-MM-dd}.log.gz</FilePattern>
-    </File>
+
+      <DefaultRolloverStrategy max="30"/>
+    </RollingFile>
   </Appenders>
+
   <Loggers>
     <Root level="info">
       <AppenderRef ref="Console"/>

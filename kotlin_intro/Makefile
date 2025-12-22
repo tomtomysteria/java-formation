@@ -1,3 +1,6 @@
+# Forcer l'utilisation de bash
+SHELL := /bin/bash
+
 # Définition des variables
 SRC_DIR = src
 BIN_DIR = bin
