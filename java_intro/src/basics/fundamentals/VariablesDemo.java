@@ -13,5 +13,16 @@ public class VariablesDemo {
     System.out.println("Lettre: " + letter);
     System.out.println("Message: " + message);
     System.out.println("Java est amusant ? " + isJavaFun);
+
+    String name = null;
+    System.out.println("Nom: " + name);
+    // On conditionne l'accès à la méthode length() pour éviter une
+    // NullPointerException
+    if (name != null) {
+      System.out.println("Longueur du nom: " + name.length());
+    } else {
+      System.out.println("name est null (pas de longueur)");
+    }
+
   }
 }

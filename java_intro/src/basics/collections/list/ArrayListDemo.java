@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 public class ArrayListDemo {
   public static void main(String[] args) {
-    ArrayList<String> fruits = new ArrayList<>();
-    fruits.add("Pomme");
-    fruits.add("Orange");
-    fruits.add("Banane");
-    fruits.add("Orange");
+    ArrayList<String> couleurs = new ArrayList<>();
+    couleurs.add("Rouge");
+    couleurs.add("Bleu");
+    couleurs.add("Rouge");
+    couleurs.add("Violet");
+    couleurs.add("Jaune");
+    System.out.println("Couleurs (ArrayList) : " + couleurs + " => équivalent à LinkedHashSet avec doublons");
 
-    System.out.println("Liste des fruits : " + fruits);
   }
 }

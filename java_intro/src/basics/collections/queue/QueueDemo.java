@@ -6,8 +6,9 @@ import java.util.Queue;
 public class QueueDemo {
   public static void main(String[] args) {
     Queue<String> queue = new LinkedList<>();
-    queue.add("Client 1");
     queue.add("Client 2");
+    queue.add("Client 1");
+    queue.add("Client 3");
 
     System.out.println("Prochain client : " + queue.poll()); // Retire le premier élément
   }

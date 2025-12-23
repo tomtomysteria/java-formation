@@ -15,8 +15,7 @@ public class DemoLauncher {
       System.out.println("(3) Démo Pair/Impair ");
       System.out.println("(4) Démo Employés ");
       System.out.println("(5) Démo des livres ");
-      System.out.println("(6) Démo de la calculatrice sécurisée ");
-      System.out.println("(7) Démo de l'annuaire téléphonique ");
+      System.out.println("(6) Démo de l'annuaire téléphonique ");
 
       System.out.print("Votre choix : ");
 
@@ -48,9 +47,6 @@ public class DemoLauncher {
           BookDemo.run();
           break;
         case 6:
-          SecureCalculatorDemo.run(scanner);
-          break;
-        case 7:
           TelephoneDirectoryDemo.run(scanner);
           break;
         default:

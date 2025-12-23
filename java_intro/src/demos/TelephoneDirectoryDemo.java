@@ -1,6 +1,7 @@
 package demos;
 
-import java.util.HashMap;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -12,7 +13,7 @@ public class TelephoneDirectoryDemo {
   public static void run(Scanner scanner) {
     System.out.println("=== Démo de l'annuaire téléphonique ===");
 
-    HashMap<String, String> directory = new HashMap<>();
+    Map<String, String> directory = new LinkedHashMap<>();
     directory.put("John", "0123456789");
     directory.put("Jane", "9876543210");
     directory.put("Bruno", "1234567890");
@@ -34,7 +35,7 @@ public class TelephoneDirectoryDemo {
 
   }
 
-  public static String getPhoneNumber(HashMap<String, String> directory, String name) {
+  public static String getPhoneNumber(Map<String, String> directory, String name) {
     if (!directory.containsKey(name)) {
       throw new NoSuchElementException("Le contact '" + name + "' n'existe pas dans l'annuaire !");
     }

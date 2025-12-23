@@ -17,15 +17,24 @@ public class CalculatorDemo {
     double addition = firstNumber + secondNumber;
     double subtraction = firstNumber - secondNumber;
     double multiplication = firstNumber * secondNumber;
-    double division = secondNumber != 0 ? firstNumber / secondNumber : Double.NaN;
 
     System.out.println("Addition : " + formatResult(addition));
     System.out.println("Soustraction : " + formatResult(subtraction));
     System.out.println("Multiplication : " + formatResult(multiplication));
-    if (secondNumber != 0) {
+
+    try {
+      double division = division(firstNumber, secondNumber);
       System.out.println("Division : " + formatResult(division));
+    } catch (ArithmeticException e) {
+      System.out.println("Erreur: " + e.getMessage());
+    }
+  }
+
+  private static double division(double firstNumber, double secondNumber) {
+    if (secondNumber == 0) {
+      throw new ArithmeticException("Division par zéro !");
     } else {
-      System.out.println("Division : Impossible (division par zéro)");
+      return firstNumber / secondNumber;
     }
   }
 
