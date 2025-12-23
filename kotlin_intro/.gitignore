@@ -1,5 +1,6 @@
 # Ignorer les fichiers compilés Java
 *.class
+bin/
 
 # Fichiers Kotlin spécifiques
 *.kotlin_module

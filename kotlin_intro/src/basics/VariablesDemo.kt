@@ -10,4 +10,8 @@ fun main() {
   println("Lettre: $letter")
   println("Message: $message")
   println("Java est amusant ? $isJavaFun")
+
+  var name: String? = null  // Peut être null
+  println("Nom: $name")
+  println("Longueur du nom: ${name?.length}") // Évite une erreur
 }
